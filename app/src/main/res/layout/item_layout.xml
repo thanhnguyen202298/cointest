@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/cardview_shadow_start_color"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iconCoin"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/iconCoin"
+            android:gravity="center"
+            android:text="may coin" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp" />
+
+        <TextView
+            android:id="@+id/captionSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iconCoin"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:text="Sell Price"
+            android:textColor="#0000ff" />
+
+        <TextView
+            android:id="@+id/selprice"
+
+            android:textStyle="bold"
+            android:textSize="20pt"
+
+            android:text="20 usd"
+            android:textColor="#00ff00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/captionSell"
+            android:layout_marginLeft="10dp" />
+        <TextView
+            android:id="@+id/captionBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iconCoin"
+
+            android:layout_alignParentEnd="true"
+            android:text="Buy Price"
+            android:textColor="#0000ff"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/buyprice"
+            android:text="20 usd"
+            android:textSize="20pt"
+            android:textStyle="bold"
+
+            android:textColor="#00ff00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/captionSell"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
