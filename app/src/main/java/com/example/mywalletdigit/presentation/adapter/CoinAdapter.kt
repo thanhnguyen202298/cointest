@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_market.view.*
 class CoinAdapter(
     activity: Activity,
     listener: OnAdapterListener<CCurrencyModel>,
-    val idlayout: Int?=null
+    val idlayout: Int? = null
 ) : BaseAdapter<CCurrencyModel>(activity, listener) {
     override fun createView(
         context: Context?,
@@ -31,7 +31,10 @@ class CoinAdapter(
     override fun bindView(item: CCurrencyModel?, position: Int, baseViewHolder: BaseViewHolder?) {
         baseViewHolder?.itemView?.apply {
             name.setText(item?.name)
-            selprice.setText("${item?.sellPrice}")
+            if (idlayout == null)
+                selprice.setText("${item?.sellPrice}")
+            else
+                selprice.setText("${item?.amount}")
             buyprice.setText("${item?.buyPrice}")
             unit1.setText("(${item?.counter})")
             unit2.setText("(${item?.counter})")
@@ -41,9 +44,6 @@ class CoinAdapter(
                 .placeholder(getActivity().resources.getDrawable(R.drawable.coinblank))
                 .into(iconCoin)
         }
-
-        val amount = baseViewHolder?.itemView?.findViewById<TextView>(R.id.amount)
-        amount?.setText("${item?.amount}")
 
     }
 }

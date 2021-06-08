@@ -30,7 +30,7 @@ class MyWallet : AppCompatActivity(), OnAdapterListener<CCurrencyModel> {
         val aarr = ArrayList<CCurrencyModel>()
         for (i in 0..5) {
             val item = CCurrencyModel("BTC$-${i}")
-            item.amount = 98.076
+            item.amount = Math.random()*1000
             aarr.add(item)
         }
 
