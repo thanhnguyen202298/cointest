@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.mywalletdigit.presentation.components.NetworkComponent
 import java.security.Permissions
 import java.util.jar.Manifest
 
@@ -22,6 +23,14 @@ class ConnectionHelper {
 
     interface ShowConnectionListener {
         fun onShowConnection(isConnection: Boolean)
+
+        @RequiresApi(Build.VERSION_CODES.M)
+        fun onPermissionResult(activity: Activity ,exec: () -> Unit) {
+            if (activity.checkSelfPermission(NetworkComponent.permission[0]) == PackageManager.PERMISSION_GRANTED
+                && activity.checkSelfPermission(NetworkComponent.permission[1]) == PackageManager.PERMISSION_GRANTED
+            )
+                exec.invoke()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

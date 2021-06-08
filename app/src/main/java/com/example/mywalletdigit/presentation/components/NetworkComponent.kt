@@ -3,6 +3,7 @@ package com.example.mywalletdigit.presentation.components
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Lifecycle
@@ -40,7 +41,7 @@ class NetworkComponent(
     fun requestPermiss() {
         val needs = mConnectionHelper?.checkPermission(permission)
 //        if (needs != null && needs.size > 0) {
-            mConnectionHelper?.requestPermission(permission, RequestCode)
+        mConnectionHelper?.requestPermission(permission, RequestCode)
 //        }
     }
 

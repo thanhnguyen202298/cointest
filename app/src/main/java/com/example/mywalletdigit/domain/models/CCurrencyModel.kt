@@ -3,7 +3,7 @@ package com.example.mywalletdigit.domain.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class CCurrencyModel (
+open class CCurrencyModel (
 
     @SerializedName("name")
     @Expose
@@ -28,4 +28,5 @@ class CCurrencyModel (
     @SerializedName("counter")
     @Expose
     var counter: String = "",){
+    var amount: Double = 0.0
 }

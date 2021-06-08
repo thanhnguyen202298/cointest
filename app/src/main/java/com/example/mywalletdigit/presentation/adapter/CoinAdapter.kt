@@ -4,19 +4,27 @@ import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.mywalletdigit.R
 import com.example.mywalletdigit.domain.models.CCurrencyModel
-import kotlinx.android.synthetic.main.item_layout.view.*
+import kotlinx.android.synthetic.main.item_market.view.*
 
-class CoinAdapter(activity:Activity, listener: OnAdapterListener<CCurrencyModel>): BaseAdapter<CCurrencyModel>(activity,listener) {
+class CoinAdapter(
+    activity: Activity,
+    listener: OnAdapterListener<CCurrencyModel>,
+    val idlayout: Int?=null
+) : BaseAdapter<CCurrencyModel>(activity, listener) {
     override fun createView(
         context: Context?,
         viewGroup: ViewGroup?,
         viewType: Int
     ): BaseViewHolder {
         val inflater = LayoutInflater.from(getActivity())
-        val view = inflater.inflate(R.layout.item_layout,null,false)
+
+        val view = if (idlayout == null)
+            inflater.inflate(R.layout.item_market, null, false)
+        else inflater.inflate(idlayout, null, false)
         return BaseViewHolder(view)
     }
 
@@ -29,10 +37,13 @@ class CoinAdapter(activity:Activity, listener: OnAdapterListener<CCurrencyModel>
             unit2.setText("(${item?.counter})")
 
             Glide.with(this)
-                .load(item?.icon?:return)
+                .load(item?.icon ?: return)
                 .placeholder(getActivity().resources.getDrawable(R.drawable.coinblank))
                 .into(iconCoin)
         }
+
+        val amount = baseViewHolder?.itemView?.findViewById<TextView>(R.id.amount)
+        amount?.setText("${item?.amount}")
 
     }
 }

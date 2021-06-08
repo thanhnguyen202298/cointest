@@ -1,13 +1,14 @@
 package com.example.mywalletdigit.data
 
 import com.example.mywalletdigit.domain.models.CCurrencyModel
+import kotlinx.coroutines.Job
 import retrofit2.Response
 import java.io.IOException
 import java.lang.Exception
 
 class RespositoryCoin: BaseResponseWrapper() {
 
-    suspend fun getCoinInfo(couter: String, onerror: (Exception)-> Unit):ArrayList<CCurrencyModel>?{
+    suspend fun getCoinInfo(couter: String, onerror: (Exception)-> Job):ArrayList<CCurrencyModel>?{
         val coinResult = apiCallResult(
             call= { RetrofitService.CooinSevice.getCoinData(couter).await() },
             onerror
@@ -26,7 +27,7 @@ open class BaseResponseWrapper {
         return Result.Error(IOException("${respone.message()}"))
     }
 
-    suspend fun <T : Any> apiCallResult(call: suspend () -> Response<T>, onerror: (Exception)-> Unit): T? {
+    suspend fun <T : Any> apiCallResult(call: suspend () -> Response<T>, onerror: (Exception)-> Job): T? {
         val result: Result<T> = baseResult(call)
         when(result){
             is Result.Success -> return result.data
