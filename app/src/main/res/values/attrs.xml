@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="itemInner" format="reference"/>
+    <attr name="itemUnit" format="reference"/>
+    <attr name="itemCaption" format="reference"/>
+    <attr name="itemName" format="reference"/>
+    <attr name="itemPrice" format="reference"/>
+</resources>

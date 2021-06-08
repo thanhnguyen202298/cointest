@@ -3,28 +3,29 @@ package com.example.mywalletdigit.domain.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class CCurrencyModel {
-    @SerializedName("base")
-    @Expose
-    var base: String? = null
-
-    @SerializedName("counter")
-    @Expose
-    var counter: String? = null
-
-    @SerializedName("buy_price")
-    @Expose
-    var buyPrice: String? = null
-
-    @SerializedName("sell_price")
-    @Expose
-    var sellPrice: String? = null
-
-    @SerializedName("icon")
-    @Expose
-    var icon: String? = null
+class CCurrencyModel (
 
     @SerializedName("name")
     @Expose
-    var name: String? = null
+    var name: String = "",
+
+    @SerializedName("buy_price")
+    @Expose
+    var buyPrice: Double = 0.0,
+
+    @SerializedName("sell_price")
+    @Expose
+    var sellPrice: Double = 0.0,
+
+    @SerializedName("icon")
+    @Expose
+    var icon: String = "",
+
+    @SerializedName("base")
+    @Expose
+    var base: String = "",
+
+    @SerializedName("counter")
+    @Expose
+    var counter: String = "",){
 }

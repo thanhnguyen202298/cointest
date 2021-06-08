@@ -19,7 +19,9 @@ object RetrofitService {
 
     private val client = OkHttpClient().newBuilder().build()
 
-    fun retrofit():Retrofit = Retrofit.Builder().baseUrl(endpoint)
+    fun retrofit():Retrofit = Retrofit.Builder()
+        .client(client)
+        .baseUrl(endpoint)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
