@@ -13,7 +13,7 @@ abstract class BaseAdapter<T> @JvmOverloads constructor(
 ) :
     RecyclerView.Adapter<BaseViewHolder>() {
     //region Properties
-    var list: List<T>? = ArrayList()
+    var list: ArrayList<T>? = ArrayList()
     var prePosChoose = -1
 
     //endregion

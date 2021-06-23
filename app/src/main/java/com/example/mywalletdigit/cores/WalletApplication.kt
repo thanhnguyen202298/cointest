@@ -14,5 +14,8 @@ class WalletApplication : Application() {
             androidContext(this@WalletApplication)
             modules(appmodule)
         }
+
+
     }
+
 }

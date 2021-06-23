@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+   <data>
+       <variable
+           name="mainVm"
+           type="com.example.mywalletdigit.presentation.viewmodels.MainViewModel" />
+   </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -73,6 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
+        data="@{mainVm.listLiveData}"
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +103,8 @@
         android:layout_height="match_parent"
         android:background="@color/gray"
         android:progressDrawable="@drawable/progress"
-        android:visibility="visible" />
+        android:visibility="@{mainVm.isprocessing?0:8}" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

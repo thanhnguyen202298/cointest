@@ -3,6 +3,7 @@ package com.example.mywalletdigit.presentation.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -10,9 +11,11 @@ import android.widget.GridLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.mywalletdigit.R
 import com.example.mywalletdigit.data.ccurrency
+import com.example.mywalletdigit.databinding.ActivityMainBinding
 import com.example.mywalletdigit.domain.models.CCurrencyModel
 import com.example.mywalletdigit.domain.utils.ConnectionHelper
 import com.example.mywalletdigit.presentation.adapter.CoinAdapter
@@ -21,17 +24,21 @@ import com.example.mywalletdigit.presentation.adapter.WrapGridLayoutManager
 import com.example.mywalletdigit.presentation.components.NetworkComponent
 import com.example.mywalletdigit.presentation.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), OnAdapterListener<CCurrencyModel>,
     ConnectionHelper.ShowConnectionListener {
     private lateinit var listadatper: CoinAdapter
     private val mainViewModel: MainViewModel by inject()
+    private lateinit var binding: ActivityMainBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        binding.mainVm = mainViewModel
         lifecycle.addObserver(NetworkComponent(this, this))
         viewSetup()
     }
@@ -40,23 +47,14 @@ class MainActivity : AppCompatActivity(), OnAdapterListener<CCurrencyModel>,
         listadatper = CoinAdapter(this, this)
         val wrapGridLayoutManager = WrapGridLayoutManager(this, 1, GridLayout.VERTICAL, false)
 
-        list.apply {
+        binding.list.apply {
             adapter = listadatper
             layoutManager = wrapGridLayoutManager
             setHasFixedSize(true)
         }
 
-        mainViewModel.listLiveData.observe(this, Observer {
-            listadatper.list = it
-            if(it.isNullOrEmpty()){
-                showMessageDialog("No data for this choice")
-            }
-            listadatper.notifyDataSetChanged()
-            loading.visibility = View.GONE
-        })
-
         mainViewModel.error.observe(this, {
-            loading.visibility= View.GONE
+            loading.visibility = View.GONE
             showMessageDialog(it.localizedMessage)
         })
         animatedY(50f)
@@ -66,15 +64,15 @@ class MainActivity : AppCompatActivity(), OnAdapterListener<CCurrencyModel>,
             ccurrency.toList() as ArrayList<String>
         )
 
-        searchCC.adapter = adaSpin
-        searchCC.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.searchCC.adapter = adaSpin
+        binding.searchCC.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                loading.visibility= View.VISIBLE
+                loading.visibility = View.VISIBLE
                 mainViewModel.getData(ccurrency[position])
             }
 
@@ -83,14 +81,14 @@ class MainActivity : AppCompatActivity(), OnAdapterListener<CCurrencyModel>,
             }
         }
 
-        mywallet.setOnClickListener{l->
-            val intent = Intent(this,MyWallet::class.java)
+        binding.mywallet.setOnClickListener { l ->
+            val intent = Intent(this, MyWallet::class.java)
             startActivity(intent);
         }
     }
 
     private fun animatedY(heig: Float) {
-        swipeup.animate()
+        binding.swipeup.animate()
             .setDuration(1000)
             .translationY(heig)
             .withEndAction({

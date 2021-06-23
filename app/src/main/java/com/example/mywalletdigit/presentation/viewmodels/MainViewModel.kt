@@ -12,8 +12,9 @@ class MainViewModel(val respoCoin : RespositoryCoin) : ViewModel() {
     private val jobMain = Job()
     private val coroutineCtx = jobMain + Dispatchers.IO
     private val scope = CoroutineScope(coroutineCtx)
-    val listLiveData: MutableLiveData<ArrayList<CCurrencyModel>> = MutableLiveData()
+    val listLiveData: MutableLiveData<ArrayList<CCurrencyModel>> = MutableLiveData(ArrayList())
     val error: MutableLiveData<Exception> = MutableLiveData()
+    val isprocessing: MutableLiveData<Boolean> = MutableLiveData()
 
     private val handlerException = { e: Exception ->
        scope.launch {
@@ -24,12 +25,13 @@ class MainViewModel(val respoCoin : RespositoryCoin) : ViewModel() {
 
     }
 
-
     fun getData(counter:String) {
+        isprocessing.value = true
         scope.launch {
             val result = respoCoin.getCoinInfo(counter, handlerException)
             if (result != null)
-                withContext(Dispatchers.Main) { listLiveData.value = result }
+                withContext(Dispatchers.Main) { listLiveData.value = result
+                isprocessing.value = false}
 
         }
     }
